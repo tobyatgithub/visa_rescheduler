@@ -9,6 +9,7 @@ from datetime import datetime
 
 import requests
 from selenium import webdriver
+# from seleniumwire import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait as Wait
@@ -27,7 +28,7 @@ PASSWORD = config['USVISA']['PASSWORD']
 SCHEDULE_ID = config['USVISA']['SCHEDULE_ID']
 MY_SCHEDULE_DATE = config['USVISA']['MY_SCHEDULE_DATE']
 COUNTRY_CODE = config['USVISA']['COUNTRY_CODE'] 
-FACILITY_ID = config['USVISA']['FACILITY_ID']
+FACILITY_ID = config['USVISA']['FACILITY_ID'] # 95 vancouver
 
 SENDGRID_API_KEY = config['SENDGRID']['SENDGRID_API_KEY']
 PUSH_TOKEN = config['PUSHOVER']['PUSH_TOKEN']
@@ -83,7 +84,8 @@ def send_notification(msg):
 
 def get_driver():
     if LOCAL_USE:
-        dr = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+        # newest chrome version wont support WebDriverManager
+        dr = webdriver.Chrome(service=Service(ChromeDriverManager(version="114.0.5735.90").install()))
     else:
         dr = webdriver.Remote(command_executor=HUB_ADDRESS, options=webdriver.ChromeOptions())
     return dr
