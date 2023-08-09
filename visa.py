@@ -16,8 +16,8 @@ from selenium.webdriver.support.ui import WebDriverWait as Wait
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 
-from sendgrid import SendGridAPIClient
-from sendgrid.helpers.mail import Mail
+# from sendgrid import SendGridAPIClient
+# from sendgrid.helpers.mail import Mail
 
 
 config = configparser.ConfigParser()
@@ -85,7 +85,8 @@ def send_notification(msg):
 def get_driver():
     if LOCAL_USE:
         # newest chrome version wont support WebDriverManager
-        dr = webdriver.Chrome(service=Service(ChromeDriverManager(version="114.0.5735.90").install()))
+        # dr = webdriver.Chrome(service=Service(ChromeDriverManager(version="114.0.5735.90").install()))
+        dr = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
     else:
         dr = webdriver.Remote(command_executor=HUB_ADDRESS, options=webdriver.ChromeOptions())
     return dr
